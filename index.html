@@ -55,13 +55,17 @@
     .chip { display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px; border-radius: 999px; background: var(--card); border: 1px solid #ffffff12; box-shadow: var(--shadow); font-weight: 600; }
     .chip svg { width: 16px; height: 16px; }
 
-    .panel { background: var(--card); border: 1px solid #ffffff12; border-radius: 16px; box-shadow: var(--shadow); }
-
-    .controls { display: grid; grid-template-columns: 1fr 160px 180px 140px; gap: 10px; padding: 12px; position: sticky; top: 0; z-index: 5; backdrop-filter: blur(6px); border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; }
+    .panel { background: var(--card); border: 1px solid #ffffff12; border-radius: 16px; box-shadow: var(--shadow); overflow: clip; }
+    @supports not (overflow: clip) { .panel { overflow: hidden; } }
+    
+    .controls { display: grid; grid-template-columns: 1fr 160px 180px 140px; gap: 10px; padding: 12px; position: sticky; top: 0; z-index: 5; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-radius: 16px; background: var(--card); clip-path: inset(0 round 16px); }
+    .controls::before, .controls::after { border-radius: inherit; }
+    
     .controls input, .controls select, .controls button { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid #ffffff22; background: #0c0f13; color: var(--text); outline: none; }
     .controls input::placeholder { color: #8b95a5; }
     @media (prefers-color-scheme: light) {
       .controls input, .controls select, .controls button { background: #fff; border-color: #e5e7eb; }
+      .controls { background: #fff; }
     }
     .controls button { cursor: pointer; font-weight: 700; border-color: var(--ring); box-shadow: inset 0 0 0 2px var(--ring); background: linear-gradient(180deg, #ffffff09, transparent); }
 
